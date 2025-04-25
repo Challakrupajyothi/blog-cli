@@ -16,3 +16,26 @@ A command-line interface (CLI) application to manage blog posts. This project al
 - Python 3.x
 - MySQL
 - `mysql.connector` library
+- 
+# 🤖 Technical Help Chatbot (CLI-based)
+
+This is a simple command-line based chatbot built with Python using **ChatterBot**. It provides technical support by answering frequently asked questions and interacting with users based on a predefined knowledge base.
+
+---
+
+## 📌 Features
+
+- Trained using **ChatterBot Corpus** and custom conversation data.
+- CLI-based interface for user interaction.
+- Provides answers to basic technical help and support questions.
+- Uses SQLite or `.db` to store chatbot knowledge and conversation history.
+
+---
+
+## 🛠️ Technologies Used
+
+- Python 3.x
+- [ChatterBot](https://github.com/gunthercox/ChatterBot)
+- SQLite (via ChatterBot)
+- tqdm (for training progress)
+- Git for version control
