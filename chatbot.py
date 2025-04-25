@@ -1,5 +1,6 @@
+from tkinter import *
 from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
+from chatterbot.trainers import ChatterBotCorpusTrainer
 
 # Create the chatbot
 chatbot = ChatBot('SupportBot')
@@ -12,33 +13,33 @@ corpus_trainer.train(
     'chatterbot.corpus.english.conversations'
 )
 
-# Custom Q&A for technical and academic help
-custom_data = [
-    "How do I reset my password?",
-    "Go to settings and click 'Reset Password'.",
-    
-    "What is Python?",
-    "Python is a popular programming language known for its simplicity.",
+# Set up the GUI
+def get_response():
+    user_input = user_input_field.get()
+    bot_response = chatbot.get_response(user_input)
+    chat_history.config(state=NORMAL)
+    chat_history.insert(END, "You: " + user_input + '\n')
+    chat_history.insert(END, "Bot: " + str(bot_response) + '\n')
+    chat_history.config(state=DISABLED)
+    user_input_field.delete(0, END)
 
-    "How can I install Python?",
-    "You can install Python from python.org by downloading the latest version.",
+# Create main window
+root = Tk()
+root.title("SupportBot Chat")
+root.geometry("400x500")
 
-    "What is a function in programming?",
-    "A function is a block of code that only runs when it is called.",
+# Create the chat history box
+chat_history = Text(root, bd=1, bg="light gray", width=50, height=20, wrap=WORD)
+chat_history.config(state=DISABLED)
+chat_history.pack(pady=20)
 
-    "How do I check my exam results?",
-    "Log into the academic portal and click on 'Results'."
-]
+# Create the user input field
+user_input_field = Entry(root, bd=1, bg="white", width=40)
+user_input_field.pack(pady=10)
 
-# Train with custom data
-custom_trainer = ListTrainer(chatbot)
-custom_trainer.train(custom_data)
+# Create the send button
+send_button = Button(root, text="Send", width=10, height=2, command=get_response)
+send_button.pack(pady=5)
 
-# Simple interaction loop
-print("Hello! I'm SupportBot. Ask me anything (type 'exit' to quit):")
-while True:
-    query = input("You: ")
-    if query.lower() == 'exit':
-        break
-    response = chatbot.get_response(query)
-    print("Bot:", response)
+# Start the Tkinter event loop
+root.mainloop()
